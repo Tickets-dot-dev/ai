@@ -1,0 +1,39 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tickets-dev",
+  "description": "Live ticket listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more, through the Tickets.dev API. MCP server plus skills.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Tickets.dev",
+    "url": "https://tickets.dev"
+  },
+  "homepage": "https://tickets.dev/docs",
+  "repository": "https://github.com/Tickets-dot-dev/ai",
+  "license": "MIT",
+  "keywords": [
+    "tickets",
+    "ticket prices",
+    "ticketmaster api",
+    "stubhub api",
+    "seatgeek api",
+    "seat maps",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Tickets.dev",
+        "shortDescription": "Live ticket listings and prices across marketplaces.",
+        "longDescription": "Live listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more. Uses your Tickets.dev API key.",
+        "developerName": "Tickets.dev",
+        "websiteURL": "https://tickets.dev",
+        "brandColor": "#026CDF",
+        "defaultPrompt": [
+          "What are the same seats listed for on each marketplace?",
+          "Show the seat map for this event with the cheapest price per section",
+          "How many tickets are listed for each Sphere show next month?"
+        ]
+      }
+    }
+  }
+}

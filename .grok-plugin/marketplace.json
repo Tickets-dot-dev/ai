@@ -1,0 +1,18 @@
+{
+  "name": "tickets-dev",
+  "owner": {
+    "name": "Tickets.dev",
+    "url": "https://tickets.dev"
+  },
+  "plugins": [
+    {
+      "name": "tickets-dev",
+      "source": "./",
+      "description": "Live ticket listings, all-in prices and seat maps across marketplaces",
+      "version": "0.1.0",
+      "author": {
+        "name": "Tickets.dev"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "tickets-dev",
+  "description": "Live ticket listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more, through the Tickets.dev API. MCP server plus skills.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Tickets.dev",
+    "url": "https://tickets.dev"
+  },
+  "homepage": "https://tickets.dev/docs",
+  "repository": "https://github.com/Tickets-dot-dev/ai",
+  "license": "MIT",
+  "keywords": [
+    "tickets",
+    "ticket prices",
+    "ticketmaster api",
+    "stubhub api",
+    "seatgeek api",
+    "seat maps",
+    "mcp"
+  ]
+}

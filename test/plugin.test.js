@@ -33,3 +33,13 @@ test("each skill has a name matching its folder and a description", () => {
     assert.match(text, new RegExp(`^---\\nname: ${name}\\ndescription: .{40,}`), name);
   }
 });
+
+test("server.json matches the npm package for the MCP registry", () => {
+  const server = json("server.json");
+  assert.equal(server.name, pkg.mcpName);
+  assert.equal(server.version, pkg.version);
+  assert.ok(server.description.length <= 100);
+  assert.equal(server.packages[0].identifier, pkg.name);
+  assert.equal(server.packages[0].version, pkg.version);
+  assert.ok(server.packages[0].environmentVariables.find((v) => v.name === "TICKETS_DEV_KEY" && v.isRequired && v.isSecret));
+});

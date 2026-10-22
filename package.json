@@ -36,5 +36,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tickets-dot-dev/ai.git"
-  }
+  },
+  "mcpName": "io.github.Tickets-dot-dev/ai"
 }

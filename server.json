@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Tickets-dot-dev/ai",
+  "description": "Live ticket prices, listings and seat maps for AI agents.",
+  "repository": {
+    "url": "https://github.com/Tickets-dot-dev/ai",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "tickets-dev-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "TICKETS_DEV_KEY",
+          "description": "Your Tickets.dev API key, from https://tickets.dev/pricing",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "TICKETS_DEV_MAX_CAPTURES",
+          "description": "Most billable captures per session (default 25)",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

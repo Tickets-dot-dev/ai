@@ -61,3 +61,15 @@ test("an unreachable server answers requests with an error instead of hanging", 
   await assert.rejects(connecting, /Could not reach/);
   await client.close();
 });
+
+test("refuses a plain-HTTP server that isn't localhost", async () => {
+  const client = new Client({ name: "test", version: "0" });
+  const connecting = client.connect(new StdioClientTransport({
+    command: process.execPath,
+    args: [new URL("../src/index.js", import.meta.url).pathname],
+    env: { PATH: process.env.PATH, TICKETS_DEV_KEY: "tk_live_x", TICKETS_DEV_MCP_URL: "http://example.com/mcp" },
+    stderr: "pipe",
+  }));
+  await assert.rejects(connecting);
+  await client.close();
+});

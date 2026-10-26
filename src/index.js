@@ -15,8 +15,15 @@ export function keyFromEnv(value = process.env.TICKETS_DEV_KEY) {
   return !key || key.includes("${") ? "" : key;
 }
 
+// The key travels in a header, so never over plain HTTP (localhost is for tests).
+const url = new URL(MCP_URL);
+if (url.protocol !== "https:" && !["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)) {
+  console.error(`Refusing to send a Tickets.dev key to ${url.origin}: use https.`);
+  process.exit(1);
+}
+
 const key = keyFromEnv();
-const remote = new StreamableHTTPClientTransport(new URL(MCP_URL), {
+const remote = new StreamableHTTPClientTransport(url, {
   requestInit: {
     headers: { "user-agent": "tickets-dev-mcp-bridge/0.1.0", ...(key && { authorization: `Bearer ${key}` }) },
   },

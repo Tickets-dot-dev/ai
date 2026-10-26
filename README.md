@@ -76,7 +76,11 @@ The plugin is coming to the Grok Build marketplace. Until then, use the [MCP ser
 
 ## MCP server
 
-The tools are hosted at `https://api.tickets.dev/mcp` (Streamable HTTP). Send your key as an `Authorization: Bearer` header.
+The tools are hosted at `https://api.tickets.dev/mcp` (Streamable HTTP).
+
+In Claude or ChatGPT, add it as a custom connector with that URL. You'll be sent to Tickets.dev to sign in and approve the connection, which creates an API key for the app. Disconnect it any time from your account settings.
+
+In tools that take a config, send your key as an `Authorization: Bearer` header instead.
 
 In Claude Code:
 

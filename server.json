@@ -22,13 +22,21 @@
           "isRequired": true,
           "isSecret": true,
           "format": "string"
-        },
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.tickets.dev/mcp",
+      "headers": [
         {
-          "name": "TICKETS_DEV_MAX_CAPTURES",
-          "description": "Most billable captures per session (default 25)",
-          "isRequired": false,
-          "isSecret": false,
-          "format": "string"
+          "name": "Authorization",
+          "description": "Bearer followed by your Tickets.dev API key, from https://tickets.dev/pricing",
+          "isRequired": true,
+          "isSecret": true,
+          "value": "Bearer {api_key}"
         }
       ]
     }

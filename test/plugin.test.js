@@ -42,4 +42,5 @@ test("server.json matches the npm package for the MCP registry", () => {
   assert.equal(server.packages[0].identifier, pkg.name);
   assert.equal(server.packages[0].version, pkg.version);
   assert.ok(server.packages[0].environmentVariables.find((v) => v.name === "TICKETS_DEV_KEY" && v.isRequired && v.isSecret));
+  assert.equal(server.remotes[0].url, "https://api.tickets.dev/mcp");
 });

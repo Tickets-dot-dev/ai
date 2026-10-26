@@ -73,3 +73,23 @@ test("refuses a plain-HTTP server that isn't localhost", async () => {
   await assert.rejects(connecting);
   await client.close();
 });
+
+test("a server that wants a key gets a clear message when none is set", async () => {
+  const locked = createServer((req, res) => {
+    res.writeHead(401, { "content-type": "application/json", "www-authenticate": 'Bearer resource_metadata="x"' });
+    res.end(JSON.stringify({ jsonrpc: "2.0", error: { code: -32000, message: "Sign in" }, id: null }));
+  });
+  await new Promise((resolve) => locked.listen(0, resolve));
+  try {
+    const client = new Client({ name: "test", version: "0" });
+    const connecting = client.connect(new StdioClientTransport({
+      command: process.execPath,
+      args: [new URL("../src/index.js", import.meta.url).pathname],
+      env: { PATH: process.env.PATH, TICKETS_DEV_MCP_URL: `http://localhost:${locked.address().port}/mcp` },
+    }));
+    await assert.rejects(connecting, /set TICKETS_DEV_KEY/);
+    await client.close();
+  } finally {
+    locked.close();
+  }
+});

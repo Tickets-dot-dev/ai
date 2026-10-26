@@ -36,10 +36,18 @@ local.onmessage = async (message) => {
   } catch (error) {
     // A request must get an answer, or the client waits forever.
     if ("id" in message && "method" in message) {
+      const unauthorized = error.code === 401 || /\b401\b|unauthorized/i.test(error.message);
       await local.send({
         jsonrpc: "2.0",
         id: message.id,
-        error: { code: -32603, message: `Could not reach ${MCP_URL}: ${error.message}` },
+        error: {
+          code: -32603,
+          message: unauthorized
+            ? key
+              ? "Tickets.dev rejected the key in TICKETS_DEV_KEY. Check it at https://tickets.dev/account/settings."
+              : "No Tickets.dev API key: set TICKETS_DEV_KEY where your agent starts (get one at https://tickets.dev/pricing), then restart it."
+            : `Could not reach ${MCP_URL}: ${error.message}`,
+        },
       });
     }
   }

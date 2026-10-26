@@ -2,7 +2,7 @@
   "name": "tickets-dev-mcp",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "MCP server for live ticket listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more, via the Tickets.dev API.",
+  "description": "MCP server for live ticket listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more. A stdio bridge to the hosted Tickets.dev MCP server.",
   "type": "module",
   "bin": {
     "tickets-dev-mcp": "src/index.js"
@@ -19,8 +19,7 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.31.0",
-    "zod": "4.6.5"
+    "@modelcontextprotocol/sdk": "1.31.0"
   },
   "keywords": [
     "mcp",

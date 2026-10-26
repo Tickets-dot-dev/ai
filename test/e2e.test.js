@@ -1,4 +1,4 @@
-// End-to-end over stdio with the SDK's MCP client, against the real API.
+// End-to-end through the stdio bridge to https://api.tickets.dev/mcp, with the SDK's MCP client.
 // Runs only with a key, and spends a few captures:
 //   TICKETS_DEV_E2E_KEY=<key> node --test
 import assert from "node:assert/strict";
@@ -39,15 +39,6 @@ test("each tool works", { skip: !process.env.TICKETS_DEV_E2E_KEY }, async () => 
   assert.match(map, /storage\.tickets\.dev\/seatmaps/);
   const markets = text(await client.callTool({ name: "list_marketplaces", arguments: {} }));
   assert.match(markets, /ticketmaster/);
-  await client.close();
-});
-
-test("the capture budget stops spending", { skip: !process.env.TICKETS_DEV_E2E_KEY }, async () => {
-  const client = await connect({ TICKETS_DEV_MAX_CAPTURES: "1" });
-  const first = await client.callTool({ name: "get_listings", arguments: { url: URL_SH } });
-  assert.ok(!first.isError);
-  const second = await client.callTool({ name: "get_listings", arguments: { url: URL_SH } });
-  assert.ok(second.isError); assert.match(text(second), /Capture budget reached: 1 of 1/);
   await client.close();
 });
 

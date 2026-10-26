@@ -105,7 +105,7 @@ Clients that connect to remote MCP servers can skip the install and use `https:/
 }
 ```
 
-The key is used for that session only and is never stored. Captures are capped at 25 per session; send an `x-max-captures` header to change it.
+The key is sent with each request and is never stored. One tool call uses at most 15 captures.
 
 | Tool | What it does |
 |---|---|

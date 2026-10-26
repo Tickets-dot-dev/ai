@@ -32,6 +32,7 @@ export function createClient({
   noKeyMessage = NO_KEY_MESSAGE,
   budgetHint = "Raise TICKETS_DEV_MAX_CAPTURES to allow more (each live capture is billed).",
   userAgent = "tickets-dev-mcp/0.1.0",
+  scope = "this session",
 } = {}) {
   let capturesUsed = 0;
 
@@ -65,7 +66,7 @@ export function createClient({
   function spend(n) {
     if (capturesUsed + n > maxCaptures) {
       throw new ToolError(
-        `Capture budget reached: ${capturesUsed} of ${maxCaptures} used this session. ${budgetHint}`,
+        `Capture budget reached: ${capturesUsed} of ${maxCaptures} used ${scope}. ${budgetHint}`,
       );
     }
     capturesUsed += n;
@@ -76,6 +77,7 @@ export function createClient({
       return capturesUsed;
     },
     maxCaptures,
+    scope,
     events: (params) => get("/events", params),
     sources: async () => (await get("/capture/sources")).sources,
     async capture(url, { includeVenueMaps = false } = {}) {
@@ -100,7 +102,7 @@ function sellable(listing) {
 }
 
 function footer(client) {
-  return `\n\nCaptures used this session: ${client.capturesUsed} of ${client.maxCaptures}.`;
+  return `\n\nCaptures used ${client.scope}: ${client.capturesUsed} of ${client.maxCaptures}.`;
 }
 
 // Whole-page totals from the capture, before any filter: what a time series of

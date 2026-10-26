@@ -1,14 +1,18 @@
 # fly.toml for the hosted Tickets.dev MCP server (mcp.tickets.dev).
-# First time: fly launch --no-deploy --copy-config, then fly deploy --ha=false.
-# Sessions live in memory, so keep exactly one machine running.
+# First time: fly launch --no-deploy --copy-config, then fly deploy.
+# Stateless, so machines can be added, stopped and replaced freely.
 
 app = "tickets-dev-mcp"
+# On a deploy, SIGTERM stops new requests; calls in flight (captures can take
+# a minute or more) get this long to finish.
+kill_signal = "SIGTERM"
+kill_timeout = "300s"
 primary_region = "iad"  # Ashburn, Virginia, next to tickets-dev-app
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "off"
+  auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 1
 

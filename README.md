@@ -90,6 +90,23 @@ Any MCP client can run the tools directly. Add this to your client's MCP configu
 }
 ```
 
+### Hosted
+
+Clients that connect to remote MCP servers can skip the install and use `https://mcp.tickets.dev/mcp` (Streamable HTTP), sending the key as a header:
+
+```json
+{
+  "mcpServers": {
+    "tickets-dev": {
+      "url": "https://mcp.tickets.dev/mcp",
+      "headers": { "Authorization": "Bearer tk_live_..." }
+    }
+  }
+}
+```
+
+The key is used for that session only and is never stored. Captures are capped at 25 per session; send an `x-max-captures` header to change it.
+
 | Tool | What it does |
 |---|---|
 | `find_events` | Finds upcoming events and their URL on every marketplace. Free. |

@@ -29,18 +29,21 @@ export function createClient({
   maxCaptures = Number(process.env.TICKETS_DEV_MAX_CAPTURES || 25),
   fetchImpl = globalThis.fetch,
   retryWaitMs = 10_000,
+  noKeyMessage = NO_KEY_MESSAGE,
+  budgetHint = "Raise TICKETS_DEV_MAX_CAPTURES to allow more (each live capture is billed).",
+  userAgent = "tickets-dev-mcp/0.1.0",
 } = {}) {
   let capturesUsed = 0;
 
   async function get(path, params = {}) {
-    if (!apiKey) throw new ToolError(NO_KEY_MESSAGE);
+    if (!apiKey) throw new ToolError(noKeyMessage);
     const url = new URL(API_URL + path);
     for (const [key, value] of Object.entries(params)) {
       if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, String(value));
     }
     for (let attempt = 0; ; attempt++) {
       const response = await fetchImpl(url, {
-        headers: { "x-api-key": apiKey, "user-agent": "tickets-dev-mcp/0.1.0" },
+        headers: { "x-api-key": apiKey, "user-agent": userAgent },
         signal: AbortSignal.timeout(120_000),
       });
       if (response.ok) return response.json();
@@ -62,8 +65,7 @@ export function createClient({
   function spend(n) {
     if (capturesUsed + n > maxCaptures) {
       throw new ToolError(
-        `Capture budget reached: ${capturesUsed} of ${maxCaptures} used this session. ` +
-          "Raise TICKETS_DEV_MAX_CAPTURES to allow more (each live capture is billed).",
+        `Capture budget reached: ${capturesUsed} of ${maxCaptures} used this session. ${budgetHint}`,
       );
     }
     capturesUsed += n;
@@ -77,7 +79,7 @@ export function createClient({
     events: (params) => get("/events", params),
     sources: async () => (await get("/capture/sources")).sources,
     async capture(url, { includeVenueMaps = false } = {}) {
-      if (!apiKey) throw new ToolError(NO_KEY_MESSAGE);
+      if (!apiKey) throw new ToolError(noKeyMessage);
       spend(1);
       return get("/capture", { url, includeVenueMaps: includeVenueMaps ? "true" : undefined });
     },

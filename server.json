@@ -32,5 +32,20 @@
         }
       ]
     }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.tickets.dev/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer followed by your Tickets.dev API key, from https://tickets.dev/pricing",
+          "isRequired": true,
+          "isSecret": true,
+          "value": "Bearer {api_key}"
+        }
+      ]
+    }
   ]
 }

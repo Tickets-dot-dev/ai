@@ -16,6 +16,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
+    "start:http": "node src/http.js",
     "test": "node --test"
   },
   "dependencies": {

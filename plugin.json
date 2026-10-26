@@ -24,7 +24,7 @@
       "interface": {
         "displayName": "Tickets.dev",
         "shortDescription": "Live ticket listings and prices across marketplaces.",
-        "longDescription": "Live listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more. Uses your Tickets.dev API key.",
+        "longDescription": "Live listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more. Sign in with your Tickets.dev account.",
         "developerName": "Tickets.dev",
         "websiteURL": "https://tickets.dev",
         "brandColor": "#026CDF",

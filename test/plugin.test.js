@@ -18,12 +18,15 @@ test("manifests share the package version and name", () => {
   assert.equal(json(".agents/plugins/marketplace.json").plugins[0].source.path, "./");
 });
 
-test("every MCP config starts the published package", () => {
+test("every plugin connects to the hosted server and signs in, with no key in its config", () => {
   for (const path of ["mcp.json", ".mcp.json", "gemini-extension.json"]) {
     const server = json(path).mcpServers["tickets-dev"];
-    assert.deepEqual(server.args, ["-y", pkg.name], path);
-    assert.equal(server.env, undefined, `${path}: no key in the config; it comes from the user's environment`);
+    assert.equal(server.url ?? server.httpUrl, "https://api.tickets.dev/mcp", path);
+    assert.equal(server.headers, undefined, `${path}: no key in the config; the client signs in`);
+    assert.equal(server.env, undefined, path);
   }
+  assert.equal(json("mcp.json").mcpServers["tickets-dev"].type, "streamable-http");
+  assert.equal(json(".mcp.json").mcpServers["tickets-dev"].type, "http");
 });
 
 test("each skill has a name matching its folder and a description", () => {

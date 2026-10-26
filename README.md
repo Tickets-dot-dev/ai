@@ -37,7 +37,7 @@ The [`tickets-dev` skill](skills/tickets-dev/SKILL.md) covers the details of tic
 
 ## Plugins
 
-If you use one of these agent tools, we recommend installing the Tickets.dev plugin. It includes the skill and tools your agent can call directly.
+If you use one of these agent tools, we recommend installing the Tickets.dev plugin. It includes the skill and tools your agent can call directly. The first time the tools are used, you sign in at tickets.dev and approve the connection, so there's no API key to copy.
 
 ### Claude Code
 
@@ -48,6 +48,8 @@ Run these commands in Claude Code:
 /plugin install tickets-dev@tickets-dev
 ```
 
+Then run `/mcp`, pick `tickets-dev` and choose **Authenticate** to sign in.
+
 ### Codex
 
 Run this command:
@@ -56,7 +58,11 @@ Run this command:
 codex plugin marketplace add Tickets-dot-dev/ai
 ```
 
-Then restart Codex and install Tickets.dev from the Plugins directory.
+Then restart Codex, install Tickets.dev from the Plugins directory, and sign in:
+
+```bash
+codex mcp login tickets-dev
+```
 
 ### Cursor
 
@@ -70,6 +76,8 @@ Run this command:
 gemini extensions install https://github.com/Tickets-dot-dev/ai
 ```
 
+Then run `/mcp auth tickets-dev` in Gemini CLI to sign in.
+
 ### Grok Build
 
 The plugin is coming to the Grok Build marketplace. Until then, use the [MCP server](#mcp-server).
@@ -78,16 +86,17 @@ The plugin is coming to the Grok Build marketplace. Until then, use the [MCP ser
 
 The tools are hosted at `https://api.tickets.dev/mcp` (Streamable HTTP).
 
-In Claude or ChatGPT, add it as a custom connector with that URL. You'll be sent to Tickets.dev to sign in and approve the connection, which creates an API key for the app. Disconnect it any time from your account settings.
-
-In tools that take a config, send your key as an `Authorization: Bearer` header instead.
+Add that URL and sign in. You'll be sent to Tickets.dev to sign in and approve the connection, which creates an API key for that app. Disconnect it any time from your account settings.
 
 In Claude Code:
 
 ```bash
-claude mcp add --transport http tickets-dev https://api.tickets.dev/mcp \
-  --header "Authorization: Bearer $TICKETS_DEV_KEY"
+claude mcp add --transport http tickets-dev https://api.tickets.dev/mcp
 ```
+
+Then run `/mcp`, pick `tickets-dev` and choose **Authenticate**.
+
+In Claude or ChatGPT, add it as a custom connector with the same URL.
 
 In clients that take a URL, for example `.cursor/mcp.json`:
 
@@ -95,12 +104,13 @@ In clients that take a URL, for example `.cursor/mcp.json`:
 {
   "mcpServers": {
     "tickets-dev": {
-      "url": "https://api.tickets.dev/mcp",
-      "headers": { "Authorization": "Bearer tk_live_..." }
+      "url": "https://api.tickets.dev/mcp"
     }
   }
 }
 ```
+
+For scripts and clients that can't sign in, send an [API key](#api-key) as a header instead, for example `"headers": { "Authorization": "Bearer tk_live_..." }`, or in Claude Code `--header "Authorization: Bearer $TICKETS_DEV_KEY"`.
 
 Clients that only start local servers, such as Claude Desktop's `claude_desktop_config.json`, can run the `tickets-dev-mcp` package. It's a small bridge that forwards to the same hosted server:
 
@@ -128,7 +138,7 @@ The tools only read data. They can't buy, hold or list tickets.
 
 ## API key
 
-The plugins and the `tickets-dev-mcp` package read your key from the `TICKETS_DEV_KEY` environment variable:
+You only need a key for the HTTP API, scripts, and clients that can't sign in. The `tickets-dev-mcp` package and the skill's direct API calls read it from the `TICKETS_DEV_KEY` environment variable:
 
 ```bash
 export TICKETS_DEV_KEY=tk_live_...

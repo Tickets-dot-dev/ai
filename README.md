@@ -132,7 +132,7 @@ export TICKETS_DEV_KEY=tk_live_...
 
 Restart your agent after setting it. Don't paste your key into a chat. If the key is missing, the agent tells you how to add it.
 
-Each capture of one event on one marketplace is billed, the same as a direct API call. One tool call uses at most 15 captures. See [pricing](https://tickets.dev/pricing).
+Each capture of one event on one marketplace is billed, the same as a direct API call. One tool call uses at most 15 captures, and up to 3 tool calls can run at once per account. See [pricing](https://tickets.dev/pricing).
 
 ## More from Tickets.dev
 

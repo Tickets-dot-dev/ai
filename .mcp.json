@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "tickets-dev": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "tickets-dev-mcp"
-      ]
+      "type": "http",
+      "url": "https://api.tickets.dev/mcp"
     }
   }
 }

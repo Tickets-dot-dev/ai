@@ -18,7 +18,8 @@ The API reference is https://tickets.dev/openapi.json. Find the event first (fre
 
 ## Keys and cost
 
-- Every call needs the user's Tickets.dev key in `TICKETS_DEV_KEY`. If it's missing, tell them to get one at https://tickets.dev/pricing, set it where their agent starts, and restart the agent. **Never ask them to paste a key into the chat.**
+- The `tickets-dev` MCP tools use the user's Tickets.dev account. If they say sign-in is needed, ask the user to sign in (in Claude Code: run `/mcp`, pick `tickets-dev`, choose Authenticate).
+- Direct HTTP API calls need the user's key in `TICKETS_DEV_KEY`. If it's missing, tell them to get one at https://tickets.dev/pricing, set it where their agent starts, and restart the agent. **Never ask them to paste a key into the chat.**
 - Captures cost money. Before capturing many events, marketplaces or a schedule, work out the number of captures with the user.
 
 Everything is read-only. Nothing can buy, hold or list tickets.

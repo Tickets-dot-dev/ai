@@ -18,12 +18,15 @@ test("manifests share the package version and name", () => {
   assert.equal(json(".agents/plugins/marketplace.json").plugins[0].source.path, "./");
 });
 
-test("every MCP config starts the published package", () => {
+test("every plugin connects to the hosted server and signs in, with no key in its config", () => {
   for (const path of ["mcp.json", ".mcp.json", "gemini-extension.json"]) {
     const server = json(path).mcpServers["tickets-dev"];
-    assert.deepEqual(server.args, ["-y", pkg.name], path);
-    assert.equal(server.env, undefined, `${path}: no key in the config; it comes from the user's environment`);
+    assert.equal(server.url ?? server.httpUrl, "https://api.tickets.dev/mcp", path);
+    assert.equal(server.headers, undefined, `${path}: no key in the config; the client signs in`);
+    assert.equal(server.env, undefined, path);
   }
+  assert.equal(json("mcp.json").mcpServers["tickets-dev"].type, "streamable-http");
+  assert.equal(json(".mcp.json").mcpServers["tickets-dev"].type, "http");
 });
 
 test("each skill has a name matching its folder and a description", () => {
@@ -32,4 +35,15 @@ test("each skill has a name matching its folder and a description", () => {
     const text = readFileSync(new URL(`${name}/SKILL.md`, dir), "utf8");
     assert.match(text, new RegExp(`^---\\nname: ${name}\\ndescription: .{40,}`), name);
   }
+});
+
+test("server.json matches the npm package for the MCP registry", () => {
+  const server = json("server.json");
+  assert.equal(server.name, pkg.mcpName);
+  assert.equal(server.version, pkg.version);
+  assert.ok(server.description.length <= 100);
+  assert.equal(server.packages[0].identifier, pkg.name);
+  assert.equal(server.packages[0].version, pkg.version);
+  assert.ok(server.packages[0].environmentVariables.find((v) => v.name === "TICKETS_DEV_KEY" && v.isRequired && v.isSecret));
+  assert.equal(server.remotes[0].url, "https://api.tickets.dev/mcp");
 });

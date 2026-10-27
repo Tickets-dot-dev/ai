@@ -1,0 +1,44 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Tickets-dot-dev/ai",
+  "description": "Live ticket prices, listings and seat maps for AI agents.",
+  "repository": {
+    "url": "https://github.com/Tickets-dot-dev/ai",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "tickets-dev-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "TICKETS_DEV_KEY",
+          "description": "Your Tickets.dev API key, from https://tickets.dev/pricing",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.tickets.dev/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer followed by your Tickets.dev API key, from https://tickets.dev/pricing. Optional: clients that support OAuth can sign in at tickets.dev instead.",
+          "isRequired": false,
+          "isSecret": true,
+          "value": "Bearer {api_key}"
+        }
+      ]
+    }
+  ]
+}

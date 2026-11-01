@@ -2,7 +2,7 @@
 
 # Tickets.dev AI
 
-This repo is the home for using Tickets.dev with AI agents. Tickets.dev returns live ticket listings, all-in prices and seat maps from Ticketmaster, StubHub, SeatGeek, Vivid Seats, TickPick, Gametime, Viagogo and more, in one schema.
+This repo is the home for using Tickets.dev with AI agents. Tickets.dev returns live ticket listings, all-in prices and seat maps from [Ticketmaster](https://tickets.dev/ticketmaster-api), [StubHub](https://tickets.dev/stubhub-api), [SeatGeek](https://tickets.dev/seatgeek-api), [Vivid Seats](https://tickets.dev/vivid-seats-api), [TickPick](https://tickets.dev/tickpick-api), [Gametime](https://tickets.dev/gametime-api), [Viagogo](https://tickets.dev/viagogo-api) and more, in one schema.
 
 Tickets.dev is a standard HTTP API, so any agent that can make web requests can use it. This repo adds an agent skill, plugins for popular agent tools, and how to connect the hosted MCP server.
 
@@ -151,6 +151,7 @@ Each capture of one event on one marketplace is billed, the same as a direct API
 ## More from Tickets.dev
 
 * [API documentation](https://tickets.dev/docs)
+* Guides: [compare ticket prices across marketplaces](https://tickets.dev/guides/compare-ticket-prices-across-marketplaces), [price and inventory alerts](https://tickets.dev/guides/ticket-price-inventory-alerts)
 * Examples: [price comparison app](https://github.com/Tickets-dot-dev/ticket-price-comparison-app), [price alerts](https://github.com/Tickets-dot-dev/ticket-price-alerts), [price tracker](https://github.com/Tickets-dot-dev/ticket-price-tracker)
 
 ## Development
